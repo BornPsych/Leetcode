@@ -4,8 +4,7 @@ public:
         vector<int>v;
         int c=0;
         string s1="";
-        while(true){
-            if(num1=="" && num2=="")break;
+        while(num1.length() || num2.length()){
             int x=0,y=0;
             if(num1.length()){
                 x = num1.back()-'0';
