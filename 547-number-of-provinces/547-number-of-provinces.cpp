@@ -2,7 +2,7 @@ class Solution {
 public:
     vector<int>parent;
     int find(int x){
-        if(parent[x]==x){
+        if(parent[x]<0){
             return x;
         }
         return parent[x] = find(parent[x]);
@@ -12,13 +12,13 @@ public:
         x = find(x);
         y = find(y);
         
-        if(parent[x]==parent[y])return;
+        if(x==y)return;
         parent[x] = y;
     }
     
     int findCircleNum(vector<vector<int>>& isConnected) {
         for(int i=0;i<isConnected.size();i++){
-            parent.push_back(i);
+            parent.push_back(-1);
         }
         
         for(int i=0;i<isConnected.size();i++){
@@ -30,7 +30,7 @@ public:
         }
         int count=0;
         for(int i=0;i<isConnected.size();i++){
-            if(parent[i]==i)count++;
+            if(parent[i]<0)count++;
         }
         
         return count;
