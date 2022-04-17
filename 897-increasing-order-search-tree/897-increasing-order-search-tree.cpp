@@ -14,14 +14,13 @@ public:
     vector<int>num;
     void preorder(TreeNode* root){
         if(!root)return;
-        num.push_back(root->val);
         if(root->left)preorder(root->left);
+        num.push_back(root->val);
         if(root->right)preorder(root->right);
     }
     
     TreeNode* increasingBST(TreeNode* root) {
         preorder(root);
-        sort(num.begin(),num.end());
         TreeNode* ans;
         if(num.size()>0)ans= new TreeNode(num[0]);
         TreeNode* temp = ans;
