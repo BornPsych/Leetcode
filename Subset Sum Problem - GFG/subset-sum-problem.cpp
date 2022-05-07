@@ -10,16 +10,6 @@ using namespace std;
 class Solution{   
 public:
     vector<vector<int>>dp;
-    int solve(vector<int>arr, int sum,vector<vector<int>> &dp,int n){
-        if(sum==0){return 1;}
-        if(n<=0 || sum<0){return 0;}
-        if(dp[n-1][sum]!=-1)return dp[n-1][sum];
-        if(arr[n-1]<=sum){
-            return dp[n-1][sum] = (solve(arr,sum-arr[n-1],dp,n-1) || solve(arr,sum,dp,n-1));
-        }else{
-            return dp[n-1][sum] = solve(arr,sum,dp,n-1);
-        }
-    }
 
     bool isSubsetSum(vector<int>arr, int sum){
         int n = arr.size();
@@ -30,7 +20,23 @@ public:
             }
             dp.push_back(temp);
         }
-        return solve(arr,sum,dp,n);
+        
+        for(int i=0;i<=n;i++){
+            for(int j=0;j<=sum;j++){
+               if(i==0)dp[i][j]=0;
+               if(j==0)dp[i][j]=1;
+            }
+        }
+        
+        for(int i=1;i<=n;i++){
+            for(int j=1;j<=sum;j++){
+               if(arr[i-1]<=j){
+                   dp[i][j] = (dp[i-1][j-arr[i-1]] || dp[i-1][j]);
+               }else dp[i][j] = dp[i-1][j];
+            }
+        }
+        
+        return dp[n][sum];
     }
 };
 
