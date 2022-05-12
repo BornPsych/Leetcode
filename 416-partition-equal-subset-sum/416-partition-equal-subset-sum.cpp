@@ -1,18 +1,6 @@
 class Solution {
 public:
     int dp[201][20002];
-    bool solve(vector<int>&nums,int sum,int n){
-        if(sum==0)return true;
-        if(n<=0 || sum<0)return false;
-        
-        if(dp[n][sum]!=-1)return dp[n][sum];
-        
-        if(sum>=nums[n-1]){
-            return dp[n][sum] = (solve(nums,sum,n-1) || solve(nums,sum-nums[n-1],n-1));
-        }else{
-            return dp[n][sum] = solve(nums,sum,n-1);
-        }
-    }
     
     bool canPartition(vector<int>& nums) {
         int sum=0;
@@ -21,6 +9,24 @@ public:
         memset(dp,-1,sizeof(dp));
         sum = sum/2;
         int n = nums.size();
-        return solve(nums,sum,n);
+        
+        for(int i=0;i<=n;i++){
+            for(int j=0;j<=sum;j++){
+                if(i==0)dp[i][j]=0;
+                if(j==0)dp[i][j]=1;
+            }
+        }
+        
+        for(int i=1;i<=n;i++){
+            for(int j=1;j<=sum;j++){
+                if(j>=nums[i-1]){
+                    dp[i][j] = (dp[i-1][j] || dp[i-1][j-nums[i-1]]);
+                }else{
+                    dp[i][j] = dp[i-1][j];
+                }
+            }
+        }
+        
+        return dp[n][sum];
     }
 };
