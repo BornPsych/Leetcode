@@ -5,8 +5,9 @@ public:
         for(auto i:nums)
         {
             curr+=i;
-            curr=max(curr,i);
-            ans=max(ans,curr);
+            if(curr>ans)ans=curr;
+            
+            if(curr<0)curr=0;
         }
         return ans;
     }
