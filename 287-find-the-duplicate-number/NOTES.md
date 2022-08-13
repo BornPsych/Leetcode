@@ -1,0 +1,1 @@
+It can be done using flyod cycle algorithm. Since there are 2 numbers of same size So, the second number will always points towards the first number and it will always form a cycle. hence we will use floyd cycle method to detect the number
